@@ -19,7 +19,4 @@ spec:
           image: abuzarmadki09/devops-project-2-frontend
           ports:
             - containerPort: 3000
-          envFrom:
-            - secretRef:
-                name: master-con
   replicas: 2
