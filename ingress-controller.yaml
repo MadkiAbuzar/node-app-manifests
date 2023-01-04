@@ -1,18 +1,23 @@
-apiVersion: extensions/v1beta1
+apiVersion: networking.k8s.io/v1
 kind: Ingress
 metadata:
-  name: hotel-ingress
-  namespace: hotel
+  name: app-ingress
+  namespace: default
 spec:
   rules:
-    - host: 18.233.99.73
-      http:
+    - http:
         paths:
           - path: /backend
+            pathType: Prefix
             backend:
-              serviceName: backend-service
-              servicePort: 80
+              service:
+                name: backend-service
+                port:
+                  number: 80
           - path: /
+            pathType: Prefix
             backend:
-              serviceName: frontend-service
-              servicePort: 80
+              service:
+                name: frontend-service
+                port:
+                  name: front-svc-prt
