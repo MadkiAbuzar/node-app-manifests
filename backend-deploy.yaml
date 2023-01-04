@@ -1,0 +1,25 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: backend-deploy
+  labels:
+    app: backend-deploy
+spec:
+  selector:
+    matchLabels:
+      app: backend-pod
+  template:
+    metadata:
+      name: backend-pod
+      labels:
+        app: backend-pod
+    spec:
+      containers:
+        - name: backend-pod
+          image: abuzarmadki09/devops-project-2-backend
+          ports:
+            - containerPort: 80
+          envFrom:
+            - secretRef:
+                name: backend-db-con-creds
+  replicas: 2

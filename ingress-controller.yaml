@@ -1,0 +1,18 @@
+apiVersion: extensions/v1beta1
+kind: Ingress
+metadata:
+  name: hotel-ingress
+  namespace: hotel
+spec:
+  rules:
+    - host: 18.233.99.73
+      http:
+        paths:
+          - path: /backend
+            backend:
+              serviceName: backend-service
+              servicePort: 80
+          - path: /
+            backend:
+              serviceName: frontend-service
+              servicePort: 80

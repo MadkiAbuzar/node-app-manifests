@@ -1,0 +1,33 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: mongodb
+  labels:
+    app: db-deploy
+spec:
+  selector:
+    matchLabels:
+      app: db-pod
+  template:
+    metadata:
+      name: db-pod
+      labels:
+        app: db-pod
+    spec:
+      containers:
+        - name: db-pod
+          image: mongo
+          ports:
+            - containerPort: 27017
+          envFrom:
+            - secretRef:
+                name: mongo-creds
+          volumeMounts:
+            - name: mongo-persistent-storage
+              mountPath: /data/db
+      volumes:
+        - name: mongo-persistent-storage
+          gcePersistentDisk:
+            pdName: mongo-disk
+            fsType: ext4
+  replicas: 1
